@@ -1,0 +1,72 @@
+/* ============ 主题变量（Marginalia · 6 套书斋主题） ============ */
+
+:root {
+  --radius: 10px;
+  --font-ui: system-ui, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+html[data-font="song"] { --font-reading: Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, "宋体", serif; }
+html[data-font="kai"]  { --font-reading: "Kaiti SC", STKaiti, KaiTi, "楷体", DFKai-SB, serif; }
+html[data-font="hei"]  { --font-reading: system-ui, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif; }
+
+/* 宣纸 */
+html[data-theme="paper"] {
+  --bg: #f6f1e6; --bg2: #efe8d8; --card: #fcf9f0;
+  --ink: #3b3428; --ink2: #6b6250; --ink3: #9a9078;
+  --line: #e2d9c4; --accent: #9a6b41; --accent-ink: #fffdf6;
+  --shadow: 0 1px 3px rgba(96, 74, 44, 0.10);
+  --shadow-lg: 0 20px 55px rgba(96, 74, 44, 0.22);
+}
+/* 墨韵 */
+html[data-theme="ink"] {
+  --bg: #191919; --bg2: #212121; --card: #242423;
+  --ink: #e7e3d8; --ink2: #b3aea0; --ink3: #7d786c;
+  --line: #3a3934; --accent: #c8a464; --accent-ink: #1c1913;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.6);
+}
+/* 青瓷 */
+html[data-theme="celadon"] {
+  --bg: #edf2ec; --bg2: #e2ebdf; --card: #f8fbf6;
+  --ink: #2e3d34; --ink2: #5b6f62; --ink3: #8fa094;
+  --line: #d4e0d0; --accent: #4e8d7c; --accent-ink: #f4faf7;
+  --shadow: 0 1px 3px rgba(50, 90, 70, 0.12);
+  --shadow-lg: 0 20px 55px rgba(50, 90, 70, 0.22);
+}
+/* 夜航 */
+html[data-theme="night"] {
+  --bg: #0f1622; --bg2: #141d2c; --card: #182234;
+  --ink: #d9e1ee; --ink2: #9fabc0; --ink3: #66748c;
+  --line: #26334a; --accent: #82aede; --accent-ink: #0e1520;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.65);
+}
+/* 咖啡 */
+html[data-theme="mocha"] {
+  --bg: #efe4d7; --bg2: #e7d9c8; --card: #faf3ea;
+  --ink: #41332a; --ink2: #73604f; --ink3: #a08c78;
+  --line: #e0cfba; --accent: #a2603a; --accent-ink: #fdf6ee;
+  --shadow: 0 1px 3px rgba(90, 60, 35, 0.12);
+  --shadow-lg: 0 20px 55px rgba(90, 60, 35, 0.24);
+}
+/* 极简 */
+html[data-theme="mono"] {
+  --bg: #fafafa; --bg2: #f0f0f0; --card: #ffffff;
+  --ink: #1d1d1f; --ink2: #555558; --ink3: #99999c;
+  --line: #e6e6e6; --accent: #1d1d1f; --accent-ink: #ffffff;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 55px rgba(0, 0, 0, 0.16);
+}
+
+/* 纸张肌理：浅色主题加极淡噪点，深色主题加顶部微光 */
+html[data-theme="paper"] body::before,
+html[data-theme="mocha"] body::before,
+html[data-theme="celadon"] body::before,
+html[data-theme="mono"] body::before {
+  content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2"/><feColorMatrix type="saturate" values="0"/></filter><rect width="180" height="180" filter="url(%23n)" opacity="0.028"/></svg>');
+}
+html[data-theme="ink"] body::before,
+html[data-theme="night"] body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse 120% 60% at 50% -10%, rgba(255, 255, 255, 0.045), transparent 60%);
+}

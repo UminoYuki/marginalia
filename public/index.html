@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="paper" data-font="song">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marginalia · 书斋 —— 微信读书摘抄馆</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/themes.css">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">斋</span>
+    <div><h1>Marginalia</h1><p>书斋 · 微信读书摘抄馆</p></div>
+  </div>
+  <div class="searchbox">
+    <input id="searchInput" type="search" placeholder="搜索书名、作者或摘抄…" autocomplete="off">
+  </div>
+  <nav class="layout-switch" id="layoutSwitch" title="切换书斋版式"></nav>
+  <div class="top-actions">
+    <button class="icon-btn" id="shuffleBtn" title="随机一摘">✦</button>
+    <button class="icon-btn" id="settingsBtn" title="书斋设置">⚙</button>
+  </div>
+</header>
+
+<div class="chipbar" id="chipbar"></div>
+
+<main id="app" class="app"><div class="empty">书斋开卷中…</div></main>
+
+<footer class="footbar" id="statsBar"></footer>
+
+<div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+<aside class="drawer" id="settingsDrawer" hidden>
+  <div class="drawer-head">
+    <h2>书斋设置</h2>
+    <button class="icon-btn" id="closeSettings" title="关闭">✕</button>
+  </div>
+
+  <section class="set-sec"><h3>版式</h3><div class="layout-grid" id="setLayout"></div></section>
+  <section class="set-sec"><h3>主题</h3><div class="theme-grid" id="setTheme"></div></section>
+  <section class="set-sec"><h3>正文字体</h3><div class="seg" id="setFont"></div></section>
+  <section class="set-sec"><h3>字号 <output id="fsOut"></output></h3>
+    <input type="range" id="setFontSize" min="14" max="24" step="1"></section>
+  <section class="set-sec"><h3>行距 <output id="lhOut"></output></h3>
+    <input type="range" id="setLineHeight" min="1.5" max="2.4" step="0.1"></section>
+  <section class="set-sec"><h3>版心宽度 <output id="mOut"></output></h3>
+    <input type="range" id="setMeasure" min="620" max="1200" step="20"></section>
+  <section class="set-sec"><h3>强调色</h3>
+    <div class="accent-row">
+      <input type="color" id="setAccent">
+      <button class="btn ghost" id="resetAccent">跟随主题</button>
+    </div>
+  </section>
+  <section class="set-sec"><h3>显示内容</h3>
+    <label class="switch-row"><input type="checkbox" id="tgCover">显示书封</label>
+    <label class="switch-row"><input type="checkbox" id="tgChapter">显示章节名</label>
+    <label class="switch-row"><input type="checkbox" id="tgDate">显示日期</label>
+    <label class="switch-row"><input type="checkbox" id="tgCategory">书架显示分类标题</label>
+  </section>
+
+  <section class="set-sec"><h3>数据源 <output id="srcOut"></output></h3>
+    <ul class="src-list" id="srcList"><li class="src-empty">读取中…</li></ul>
+    <div class="src-add">
+      <input type="text" id="srcInput" placeholder="粘贴文件夹绝对路径，如 D:\笔记\微信读书" spellcheck="false" autocomplete="off">
+      <button class="btn ghost" id="srcCheck">检查</button>
+    </div>
+    <p class="src-msg" id="srcMsg"></p>
+    <div class="src-actions">
+      <button class="btn ghost" id="srcReset" disabled>撤销</button>
+      <button class="btn" id="srcSave" disabled>保存并重新载入</button>
+    </div>
+  </section>
+
+  <p class="save-hint" id="saveHint"></p>
+  <p class="set-note">设置保存在本项目 data 文件夹内，数据源写入 config.json；<br>Obsidian 笔记库始终保持只读。</p>
+</aside>
+
+<div class="modal-backdrop" id="modalBackdrop" hidden>
+  <article class="book-modal" id="bookModal"></article>
+</div>
+
+<div class="modal-backdrop card-backdrop" id="cardBackdrop" hidden>
+  <div class="card-designer">
+    <div class="cd-stage-wrap" id="cardStageWrap">
+      <div class="cd-stage" id="cardStage"></div>
+    </div>
+    <aside class="cd-panel">
+      <div class="cd-head">
+        <h2>摘抄制卡</h2>
+        <button class="icon-btn" id="cardClose" title="关闭">✕</button>
+      </div>
+      <section class="cd-sec"><h3>卡片样式</h3><div class="cd-styles" id="cardStyles"></div></section>
+      <section class="cd-sec"><h3>字号 <output id="cdFsOut"></output></h3>
+        <div class="cd-fs-row">
+          <button class="cd-fs-btn" id="cdFsMinus" title="缩小">A−</button>
+          <input type="range" id="cdFs" min="80" max="150" step="5" value="100">
+          <button class="cd-fs-btn" id="cdFsPlus" title="放大">A＋</button>
+        </div>
+        <div class="cd-fs-foot">
+          <span id="cdFsHint"></span>
+          <button class="copy-btn" id="cdFsReset">重置 100%</button>
+        </div>
+      </section>
+      <section class="cd-sec"><h3>显示内容</h3>
+        <label class="switch-row"><input type="checkbox" id="cdAuthor" checked>作者</label>
+        <label class="switch-row"><input type="checkbox" id="cdChapter" checked>章节</label>
+        <label class="switch-row"><input type="checkbox" id="cdDate" checked>日期</label>
+      </section>
+      <div class="cd-actions">
+        <button class="btn" id="cardExport">导出 PNG</button>
+        <button class="btn ghost" id="cardCopy">复制图片</button>
+      </div>
+      <p class="cd-note">导出为 1800 × 2400 高清图片<br>可直接分享到朋友圈 / 小红书</p>
+    </aside>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="/app.js"></script>
+</body>
+</html>
