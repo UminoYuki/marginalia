@@ -44,6 +44,8 @@
 - 所有本项目产生的数据（封面缓存 `data/covers/`、设置 `data/settings.json`、日志）都落在本项目目录（D 盘）内，不占用 C 盘。
 - 服务只监听 `127.0.0.1`；端口/绑定地址在 `config.json` 里改。
 
+> 笔记文件需要满足什么格式、哪些字段是必须的，见 [数据源格式说明](docs/data-format.md)。
+
 ## 功能
 
 - 5 种书斋版式：书架 / 摘抄卡片（瀑布流）/ 阅读时间轴 / 书卷长读 / 每日一签
@@ -59,6 +61,7 @@
 marginalia/
 ├─ server.js          # 零依赖 HTTP 服务（API + 静态页 + 封面代理）
 ├─ config.example.json # 配置模板（首次运行自动复制为 config.json）
+├─ docs/data-format.md # 数据源笔记格式说明
 ├─ config.json        # 本地数据源与端口配置（不入库）
 ├─ lib/parser.js      # weread 笔记解析（frontmatter + 章节 + 划线 + 书评）
 ├─ lib/library.js     # 只读书库扫描、目录检查与 mtime 缓存
