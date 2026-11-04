@@ -2,6 +2,24 @@
 
 把 Obsidian 库里的微信读书笔记（weread2obsidian 导出格式）变成一个可自定义版式与主题的本地摘抄展示站。
 
+## 截图
+
+**书架**：按分类浏览全部藏书，封面本地缓存
+
+![书架](docs/screenshots/shelf.jpg)
+
+**书籍详情**：按章节展示划线，每条都能一键制卡或复制
+
+![书籍详情](docs/screenshots/book-detail.jpg)
+
+**摘抄制卡**：6 种卡片样式实时预览，导出 1800×2400 高清 PNG
+
+![摘抄制卡](docs/screenshots/card-maker.jpg)
+
+**每日一签**：每天随机抽一句摘抄
+
+![每日一签](docs/screenshots/daily.jpg)
+
 ## 运行
 
 - 双击 `start.bat`，或在本目录执行 `node server.js`
